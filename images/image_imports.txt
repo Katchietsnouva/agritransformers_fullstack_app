@@ -1,0 +1,47 @@
+assets:
+- images/,.NET.gif
+- images/3D modeling.gif
+- images/Arduino.gif
+- images/Artificial Intelligence.webp
+- images/Augmented Reality.jpg
+- images/Back-End Develpoment.jpeg
+- images/Blockchain.jpeg
+- images/Blynk IoT.jpg
+- images/CBIR (Content-Based Image Retrieval).jpeg
+- images/Cloud.jpg
+- images/Data analysis.jpg
+- images/Desktop Application.jpeg
+- images/Digital Twinning.jpg
+- images/Embedded Systems.jpeg
+- images/ESP32.jpg
+- images/Fire base.jpg
+- images/Flutter.jpeg
+- images/Flutter.jpg
+- images/Front-End-Development.jpg
+- images/Full Stack Development.jpeg
+- images/Game Development.jpeg
+- images/Hockey.jpg
+- images/ig_logo.jpg
+- images/ig_logo.png
+- images/ig_logo.webp
+- images/ig_name.png
+- images/Industrie 4.0.jpg
+- images/IoT.jpg
+- images/Ladder Logic.jpg
+- images/Logo creation.webp
+- images/Machine learning.jpeg
+- images/Mechatronics.jpg
+- images/MERN development.jpeg
+- images/Mobile Applications.jpeg
+- images/Music Production.jpg
+- images/Node Red.jpg
+- images/PCB Designer.jpg
+- images/Posters.jpg
+- images/React.jpg
+- images/Rigging.jpg
+- images/Robotics.jpeg
+- images/Software Development.png
+- images/Space Rocket.jpg
+- images/Virtual Reality.jpeg
+- images/Web3.png
+- images/z.jpg

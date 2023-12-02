@@ -1,0 +1,308 @@
+
+
+
+
+import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+class UserProfile extends StatefulWidget {
+   UserProfile({Key? key}) : super(key: key);
+
+  @override
+  _UserProfileState createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
+
+
+  // Define a Firebase Storage reference for the user profile image
+  final Reference userProfileImageRef =
+      FirebaseStorage.instance.ref('userprofileimages/farmer1.jpg');
+
+  // late Future<String> userProfileImageUrl;
+  late Future<String> userProfileImageUrl = getProfileImageUrl();
+
+
+  @override
+  void initState() {
+    super.initState();
+    userProfileImageUrl = getProfileImageUrl();
+  }
+
+  Future<String> getProfileImageUrl() async {
+    try {
+      final downloadURL = await userProfileImageRef.getDownloadURL();
+      return downloadURL;
+    } catch (e) {
+      // Handle any errors that may occur when getting the download URL
+      print('Error loading user profile image: $e');
+      return ''; // Return an empty URL or a default image URL
+    }
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: FutureBuilder<String>(
+         future: userProfileImageUrl,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError || !snapshot.hasData) {
+            return Text('Error loading image'); // Handle error case
+          } else {
+            return Row(
+              children: [
+                // Image.asset(
+                //   'images/afyalisheltd.png',
+                //   height: 50,
+                // ),
+                SizedBox(width: 8),
+                Image.network(
+                  snapshot.data!,
+                  // height: 50,
+                ),
+              ],
+            );
+          }
+        },
+      ),
+    ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+
+            Text(
+            'Famers Profile',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          // User details
+          Text('Email: farmer01@gmail.com'),
+          Text('Location: Narok, Kenya'),
+          SizedBox(height: 20),
+          // Edit profile button
+          ElevatedButton(
+            onPressed: () {
+              // Add functionality for editing the profile
+            },
+            child: Text('Edit Profile'),
+          ),
+            // User profile picture
+            Container(
+              margin:  EdgeInsets.all(20),
+              child:  CircleAvatar(
+                radius: 60,
+
+                backgroundImage: AssetImage('images/AL.png'),
+
+
+
+
+                
+                  child: [
+                    FutureBuilder<String>(
+            future: userProfileImageUrl,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+              } else if (snapshot.hasError || !snapshot.hasData) {
+                    // Handle error case
+                    return Icon(Icons.error);
+              } else {
+                    return Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.all(20),
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundImage: NetworkImage(snapshot.data!),
+                      ),
+                    );
+              }
+            },
+          ),
+                  ],
+              
+
+
+
+              ),
+            ),
+            // User name and company details
+             Card(
+              margin: EdgeInsets.all(16),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text(
+                      'AFYA LISHE LIMITED',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('FOOD BASED COMPANY'),
+                    Text('CONTACT: ASAD GICHARU'),
+                    Text('0714 364 592'),
+                  ],
+                ),
+              ),
+            ),
+            // Problem description
+             Card(
+              margin: EdgeInsets.all(16),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text(
+                      'PROBLEM',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'According to a study by Nyeri County government health department, two out of three people in Nyeri die of a Non-Communicable Disease (NCD). NCDs account for 44% of all deaths in the county and the most affected age group being residents above the age of 40. In Kenya, NCDs account for 50% hospital admissions and 55% of deaths (According to data from the Ministry of Health).',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Solution description
+             Card(
+              margin: EdgeInsets.all(16),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text(
+                      'SOLUTION',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'According to Mr. Ng’ethe, consumers should understand the composition of the food they eat to help them solve the risk of lifestyle diseases. Fortifying tak flour with beetroot will incorporate health benefits that will help reduce the risk of acquiring lifestyle diseases.',
+                    ),
+                    Text('Advantages'),
+                    Text(
+                        'Beetroot is a great source of fiber, folate (vitamin B9), manganese, potassium, iron, and vitamin C.'),
+                    Text(
+                        'The dietary fiber helps digestive health and regulates blood sugar levels.'),
+                    Text(
+                        'Antioxidants like betalains help reduce oxidative stress and inflammation in the body.'),
+                    Text(
+                        'The betalain in beetroot also provides an appealing color to the baked product.'),
+                  ],
+                ),
+              ),
+            ),
+            // Product quality
+             Card(
+              margin: EdgeInsets.all(16),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text(
+                      'PRODUCT QUALITY',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('Shelf life - 9 months'),
+                    Text('Color - Pink-colored flour'),
+                    Text(
+                        'Safety - Free from molds (toxins) due to proper handling during processing'),
+                    Text('Usage - Easy to knead during cooking and baking.'),
+                    Text(
+                        'Unique appealing aroma of the products made from the flour'),
+                    Text('Abundant source of dietary fiber.'),
+                    Text('Unique packaging method.'),
+                  ],
+                ),
+              ),
+            ),
+            // Sales and marketing
+             Card(
+              margin: EdgeInsets.all(16),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text(
+                      'SALES AND MARKETING',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('Price: Ksh 250/2kg packet'),
+                    Text(
+                        'Place: Within Nyeri county and its outskirts, Supermarkets, Local markets, Distributors'),
+                  ],
+                ),
+              ),
+            ),
+            // Promotions
+             Card(
+              margin: EdgeInsets.all(16),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text(
+                      'PROMOTIONS',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                        'Loyalty programs, Cooking and baking shows, Influencer collaborations, Customer reviews and testimonials on our website, Advertisements, Offers for bulk buying.'),
+                  ],
+                ),
+              ),
+            ),
+            // Team
+             Card(
+              margin: EdgeInsets.all(16),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Text(
+                      'TEAM',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('Asad Gicharu - CEO'),
+                    Text('Joshua Gichana - Operations manager'),
+                    Text('Gordon Omondi - Chief Marketing officer'),
+                    Text('John Kimani - Chief financial officer'),
+                    Text('Jackson Makato - Secretary'),
+                    Text('Aswa Philip Katiechi - Chief Technology Officer'),
+                    Text(
+                        'Others: Casual laborers, Quality assurance officers, Supervisors'),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

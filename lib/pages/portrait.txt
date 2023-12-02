@@ -1,0 +1,56 @@
+if (orientation == Orientation.portrait) {
+              // Display images in a single column for portrait mode
+              return ListView.builder(
+                padding: const EdgeInsets.all(12),
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final fileData = snapshot.data![index];
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Stack(
+                      children: [
+                        CachedNetworkImage(
+                          cacheManager: customCacheManager,
+                          key: UniqueKey(),
+                          imageUrl: fileData.downloadURL,
+                          width: screenWidth, // Adjust width based on screen
+                          height: 200,
+                          fit: BoxFit.cover,
+                          // const SizedBox(height: 20),
+                          placeholder: (context, url) => Container(
+                            // width: screenWidth / maxImages,
+                            height: 200,
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.grey[200],
+                              valueColor:
+                                  ColorChangingTweenSequence(_controller)
+                                      .animate(_controller),
+                              strokeWidth: 3,
+                            ),
+                          ),
+
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            color: Colors.black.withOpacity(0.5),
+                            child: Text(
+                              fileData.fileName,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            } else {}

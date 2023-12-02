@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+class UserProfile extends StatefulWidget {
+  const UserProfile({Key? key}) : super(key: key);
+
+  @override
+  _UserProfileState createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
+  // Define a Firebase Storage reference for the user profile image
+  final Reference userProfileImageRef =
+      FirebaseStorage.instance.ref('userprofileimages/farmer1.jpg');
+
+  late Future<String> userProfileImageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    userProfileImageUrl = getProfileImageUrl();
+  }
+
+  Future<String> getProfileImageUrl() async {
+    try {
+      final downloadURL = await userProfileImageRef.getDownloadURL();
+      return downloadURL;
+    } catch (e) {
+      // Handle any errors that may occur when getting the download URL
+      print('Error loading user profile image: $e');
+      return ''; // Return an empty URL or a default image URL
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('User Profile'),
+      ),
+      body: Column(
+        children: <Widget>[
+          // User profile picture
+          FutureBuilder<String>(
+            future: userProfileImageUrl,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError || !snapshot.hasData) {
+                // Handle error case
+                return Icon(Icons.error);
+              } else {
+                return Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.all(20),
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundImage: NetworkImage(snapshot.data!),
+                  ),
+                );
+              }
+            },
+          ),
+          // User name
+          Text(
+            'Famers Profile',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          // User details
+          Text('Email: farmer01@gmail.com'),
+          Text('Location: Narok, Kenya'),
+          SizedBox(height: 20),
+          // Edit profile button
+          ElevatedButton(
+            onPressed: () {
+              // Add functionality for editing the profile
+            },
+            child: Text('Edit Profile'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

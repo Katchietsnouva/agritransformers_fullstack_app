@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198736972058",
+    "project_id": "chatauth-48514",
+    "storage_bucket": "chatauth-48514.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198736972058:android:98dbe8446582858060c4a3",
+        "android_client_info": {
+          "package_name": "com.example.chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSebEq2KGPl0EeDqgMpSOuCnhMHXtm9EE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

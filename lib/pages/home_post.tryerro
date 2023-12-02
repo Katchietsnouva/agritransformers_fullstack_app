@@ -1,0 +1,53 @@
+//Missing concrete implementations of 'Animatable.animate', 'Animatable.chain', 'Animatable.evaluate', 'Tween.transform', and 4 more.
+//Try implementing the missing methods, or make the class abstract.dartnon_abstract_class_inherits_abstract_member
+//class ColorChangingTweenSequence implements Tween<Color?>
+//package:chatapp/pages/home_posts_page.dart
+
+
+
+
+
+
+
+class ColorChangingTweenSequence implements Tween<Color?> {
+  final Animation<double> animation;
+
+  ColorChangingTweenSequence(this.animation);
+
+  @override
+  Color? lerp(double t) {
+    final index = t * 10;
+    return ColorTween(begin: Colors.blue, end: Colors.red)
+        .lerp((index % 1).clamp(0.0, 1.0));
+  }
+  
+  @override
+  Color? begin;
+  
+  @override
+  Color? end;
+  
+  @override
+  Animation<Color?> animate(Animation<double> parent) {
+    // TODO: implement animate
+    throw UnimplementedError();
+  }
+  
+  @override
+  Animatable<Color?> chain(Animatable<double> parent) {
+    // TODO: implement chain
+    throw UnimplementedError();
+  }
+  
+  @override
+  Color? evaluate(Animation<double> animation) {
+    // TODO: implement evaluate
+    throw UnimplementedError();
+  }
+  
+  @override
+  Color? transform(double t) {
+    // TODO: implement transform
+    throw UnimplementedError();
+  }
+}
